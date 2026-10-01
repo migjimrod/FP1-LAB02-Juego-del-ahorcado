@@ -17,7 +17,7 @@ def elige_palabra(fichero="palabras.txt"):
     return random.choice(palabras)
 
 
-def normalizar(cadena):
+def normalizar(cadena:str)->str:
     """
     Normaliza una cadena de texto realizando las siguientes operaciones:
         - convierte a minúsculas
@@ -30,8 +30,10 @@ def normalizar(cadena):
     Devuelve:
       Cadena de texto con la palabra normalizada
     """
-    # TODO: Implementa esta función (y elimina la instrucción pass)
-    pass
+    cadena = cadena.lower().strip()
+    cadena = cadena.replace("á","a").replace("é","e").replace("í","i").replace("ó","o").replace("ú","u")
+    return cadena.replace("ü","u")
+
 
 def enmascarar(palabra_secreta, letras_usadas=""):
     '''Devuelve una cadena de texto con la palabra enmascarada. 
@@ -44,8 +46,13 @@ def enmascarar(palabra_secreta, letras_usadas=""):
     Devuelve:
       Cadena de texto con la palabra enmascarada
     '''
-    # TODO: Implementa esta función (y elimina la instrucción pass)
-    pass
+    res = ""
+    for c in palabra_secreta:
+        if c in letras_usadas:
+            res += c
+        else:    
+            res += "_"
+    return res 
 
 
 def ha_ganado(palabra_enmascarada):
@@ -57,14 +64,40 @@ def ha_ganado(palabra_enmascarada):
     Devuelve:
     - True si el jugador ha ganado, False en caso contrario
     '''
-    # TODO: Implementa esta función (y elimina la instrucción pass)
-    pass
+    if "_" in palabra_enmascarada:
+        return False
+    else: 
+        return True
+
+def mostrar_estado(palabra_enmascarada,letras_usadas,intentos):
+    espacio = " ".join(palabra_enmascarada)
+    if letras_usadas == "":
+        letras_mostrar = "Letras usadas: ninguna"
+    else:
+        letras_mostrar = letras_usadas
+
+    print(f"Estado: {espacio}")
+    print(f"Letras usadas: {letras_mostrar}")
+    print(f"Intentos restantes: {intentos}")
+
+def pedir_letra(letras_usadas):
+    intro=input("Introduce una letra:")
+    if not intro.isalpha():
+        return "Debes introducir una letra"
+    elif len(intro) != 1:
+        return "Debes introducir una única letra"
+    elif intro.lower() in letras_usadas.lower():
+        return "Esa letra ya la has usado"
+    else:
+        return intro.lower()
+
+def jugar(palabra_secreta,intentos):
 
 
-# TODO: Implementa la función mostrar_estado
 
-# TODO: Implementa la función pedir_letra
 
-# TODO: Implementa la función jugar
 
+
+
+    
 # TODO: Escribe el programa principal
